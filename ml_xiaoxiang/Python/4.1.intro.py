@@ -13,7 +13,7 @@ import scipy.optimize as opt
 import matplotlib.pyplot as plt
 from scipy.stats import norm, poisson
 # from scipy.interpolate import BarycentricInterpolator
-# from scipy.interpolate import CubicSpline
+from scipy.interpolate import CubicSpline
 import math
 # import seaborn
 
@@ -39,6 +39,7 @@ def f(x):
 
 
 if __name__ == "__main__":
+    pass
     # # 开场白：
     # numpy是非常好用的数据包，如：可以这样得到这个二维数组
     # [[ 0  1  2  3  4  5]
@@ -286,8 +287,8 @@ if __name__ == "__main__":
 
     # 5.绘图
     # 5.1 绘制正态分布概率密度函数
-    # mpl.rcParams['font.sans-serif'] = [u'SimHei']  #FangSong/黑体 FangSong/KaiTi
-    # mpl.rcParams['axes.unicode_minus'] = False
+    mpl.rcParams['font.sans-serif'] = [u'SimHei']  #FangSong/黑体 FangSong/KaiTi
+    mpl.rcParams['axes.unicode_minus'] = False
     # mu = 0
     # sigma = 1
     # x = np.linspace(mu - 3 * sigma, mu + 3 * sigma, 51)
@@ -315,10 +316,10 @@ if __name__ == "__main__":
     # plt.plot(x, y_logit, 'r-', label='Logistic Loss', linewidth=2)
     # plt.plot(x, y_01, 'g-', label='0/1 Loss', linewidth=2)
     # plt.plot(x, y_hinge, 'b-', label='Hinge Loss', linewidth=2)
-    # # plt.plot(x, y_boost, 'm--', label='Adaboost Loss', linewidth=2)
+    # plt.plot(x, y_boost, 'm--', label='Adaboost Loss', linewidth=2)
     # plt.grid()
     # plt.legend(loc='upper right')
-    # # plt.savefig('1.png')
+    # plt.savefig('1.png')
     # plt.show()
 
     # 5.3 x^x
@@ -378,15 +379,15 @@ if __name__ == "__main__":
     # plt.show()
 
     # # 6.2 验证中心极限定理
-    t = 1000
-    a = np.zeros(10000)
-    for i in range(t):
-        a += np.random.uniform(-5, 5, 10000)
-    a /= t
-    plt.hist(a, bins=30, color='g', alpha=0.5, normed=True, label=u'均匀分布叠加')
-    plt.legend(loc='upper left')
-    plt.grid()
-    plt.show()
+    # t = 1000
+    # a = np.zeros(10000)
+    # for i in range(t):
+    #     a += np.random.uniform(-5, 5, 10000)
+    # a /= t
+    # plt.hist(a, bins=30, color='g', alpha=0.5, normed=True, label=u'均匀分布叠加')
+    # plt.legend(loc='upper left')
+    # plt.grid()
+    # plt.show()
 
     # 6.21 其他分布的中心极限定理
     # lamda = 10
@@ -419,7 +420,7 @@ if __name__ == "__main__":
     # x = np.random.poisson(lam=5, size=10000)
     # print x
     # pillar = 15
-    # a = plt.hist(x, bins=pillar, normed=True, range=[0, pillar], color='g', alpha=0.5)
+    # a = plt.hist(x, bins=pillar, density=True, range=[0, pillar], color='g', alpha=0.5)
     # plt.grid()
     # # plt.show()
     # print a

@@ -40,7 +40,7 @@ def fill_state_code(row):
 
 if __name__ == "__main__":
     pd.set_option('display.width', 200)
-    data = pd.read_excel('sales.xlsx', sheetname='sheet1', header=0)
+    data = pd.read_excel('sales.xlsx', sheet_name='sheet1', header=0)
     print 'data.head() = \n', data.head()
     print 'data.tail() = \n', data.tail()
     print 'data.dtypes = \n', data.dtypes

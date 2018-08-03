@@ -46,8 +46,8 @@ if __name__ == "__main__":
 
     # pandas读入
     data = pd.read_csv(path)    # TV、Radio、Newspaper、Sales
-    # x = data[['TV', 'Radio', 'Newspaper']]
-    x = data[['TV', 'Radio']]
+    x = data[['TV', 'Radio', 'Newspaper']]
+    # x = data[['TV', 'Radio']]
     y = data['Sales']
     print x
     print y

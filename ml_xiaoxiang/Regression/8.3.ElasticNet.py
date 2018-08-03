@@ -40,27 +40,29 @@ if __name__ == "__main__":
     N = 9
     x = np.linspace(0, 6, N) + np.random.randn(N)
     x = np.sort(x)
-    y = x**2 - 4*x - 3 + np.random.randn(N)
+    y = x ** 2 - 4 * x - 3 + np.random.randn(N)
     x.shape = -1, 1
     y.shape = -1, 1
 
-    models = [Pipeline([
-        ('poly', PolynomialFeatures()),
-        ('linear', LinearRegression(fit_intercept=False))]),
+    models = [
+        Pipeline([
+            ('poly', PolynomialFeatures()),  # 截距项默认加入（true）
+            ('linear', LinearRegression(fit_intercept=False))]),  # 忽略截距项
         Pipeline([
             ('poly', PolynomialFeatures()),
-            ('linear', RidgeCV(alphas=np.logspace(-3, 2, 50), fit_intercept=False))]),
+            ('linear', RidgeCV(alphas=np.logspace(-3, 2, 50), fit_intercept=False))]),  # 默认包含了参数优化
         Pipeline([
             ('poly', PolynomialFeatures()),
             ('linear', LassoCV(alphas=np.logspace(-3, 2, 50), fit_intercept=False))]),
         Pipeline([
             ('poly', PolynomialFeatures()),
-            ('linear', ElasticNetCV(alphas=np.logspace(-3, 2, 50), l1_ratio=[.1, .5, .7, .9, .95, .99, 1],
-                                    fit_intercept=False))])
+            ('linear',
+             ElasticNetCV(alphas=np.logspace(-3, 2, 50), l1_ratio=[.1, .5, .7, .9, .95, .99, 1],  # L1、L2；其中L1所占比例（<1）
+                          fit_intercept=False))])
     ]
     mpl.rcParams['font.sans-serif'] = [u'simHei']
     mpl.rcParams['axes.unicode_minus'] = False
-    np.set_printoptions(suppress=True)
+    np.set_printoptions(suppress=True)      # 小数点格式显示（不用科学记数法）
 
     plt.figure(figsize=(18, 12), facecolor='w')
     d_pool = np.arange(1, N, 1)  # 阶
@@ -76,7 +78,7 @@ if __name__ == "__main__":
     ess_rss_list = []
     for t in range(4):
         model = models[t]
-        plt.subplot(2, 2, t+1)
+        plt.subplot(2, 2, t + 1)
         plt.plot(x, y, 'ro', ms=10, zorder=N)
         for i, d in enumerate(d_pool):
             model.set_params(poly__degree=d)
@@ -86,7 +88,7 @@ if __name__ == "__main__":
             if hasattr(lin, 'alpha_'):
                 idx = output.find(u'系数')
                 output = output[:idx] + (u'alpha=%.6f，' % lin.alpha_) + output[idx:]
-            if hasattr(lin, 'l1_ratio_'):   # 根据交叉验证结果，从输入l1_ratio(list)中选择的最优l1_ratio_(float)
+            if hasattr(lin, 'l1_ratio_'):  # 根据交叉验证结果，从输入l1_ratio(list)中选择的最优l1_ratio_(float)
                 idx = output.find(u'系数')
                 output = output[:idx] + (u'l1_ratio=%.6f，' % lin.l1_ratio_) + output[idx:]
             print output, lin.coef_.ravel()

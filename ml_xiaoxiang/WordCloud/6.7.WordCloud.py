@@ -70,7 +70,7 @@ if __name__ == '__main__':
     cc = zip(cc.keys(), cc.values())
 
     max_font_size = 20
-    wc = WordCloud(font_path='C:\\Windows\\Fonts\\SIMHEI.TTF', mask=mask,
+    wc = WordCloud(font_path='C:\\Windows\\Fonts\\verdanai.ttf', mask=mask,
                    background_color='black', max_font_size=max_font_size, max_words=len(cc))
     wc.generate_from_frequencies(frequencies=cc)
     wc.recolor(color_func=rand_color)

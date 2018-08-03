@@ -75,8 +75,8 @@ if __name__ == "__main__":
     print '---------------------'
     a = 1180
     b = 1230
-    a = 1600
-    b = 1700
+    # a = 1600
+    # b = 1700
     p_list2 = []
     p = np.array(filter(is_prime3, range(2, b+1)))
     p = p[p >= a]

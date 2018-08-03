@@ -48,6 +48,7 @@ class Child(object):
     def __getattr__(self, item):
         if item == 'count':
             return 10
+        raise AttributeError('\'Student\' object has no attribute \'%s\'' % item)
 
     pass
 
@@ -156,7 +157,7 @@ if __name__ == '__main__':
 
     # ch = Child()
     # ch.name = 'test'
-    # # ch.kii = 'kka'
+    # # ch.size = 'B+'
     # print(ch.count)  # 当调用不存在的属性时，比如score，Python解释器会试图调用__getattr__(self, 'score')来尝试获得属性
 
     print(Chain().status.user.timeline.list)

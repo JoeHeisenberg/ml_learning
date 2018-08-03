@@ -26,8 +26,8 @@ if __name__ == '__main__':
     alpha = np.logspace(-3, 3, 7)
     clf = LogisticRegression(penalty='l2', C=1)
     clf.fit(x, y)
-    y_score = clf.decision_function(x)
-    y = label_binarize(y, classes=np.arange(n_class))
+    y_score = clf.decision_function(x)      # 此处decision_function使用三个logistic回归实现分类
+    y = label_binarize(y, classes=np.arange(n_class))   # one-hot编码
     colors = cycle('gbc')
     fpr = dict()
     tpr = dict()

@@ -9,31 +9,32 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import Lasso, Ridge
 from sklearn.model_selection import GridSearchCV
 
-
 if __name__ == "__main__":
     # pandas读入
-    data = pd.read_csv('Advertising.csv')    # TV、Radio、Newspaper、Sales
+    data = pd.read_csv('Advertising.csv')  # TV、Radio、Newspaper、Sales
     x = data[['TV', 'Radio', 'Newspaper']]
     # x = data[['TV', 'Radio']]
     y = data['Sales']
     print x
     print y
 
-    x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1)
-    # model = Lasso()
-    model = Ridge()
+    x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1)  # random_state为随机数种子，将起始位置设置为1
+    model = Lasso()
+    # model = Ridge()
     alpha_can = np.logspace(-3, 2, 10)
     np.set_printoptions(suppress=True)
     print 'alpha_can = ', alpha_can
-    lasso_model = GridSearchCV(model, param_grid={'alpha': alpha_can}, cv=5)
+    lasso_model = GridSearchCV(model, param_grid={'alpha': alpha_can}, cv=5)  # 五折交叉验证，调参
     lasso_model.fit(x_train, y_train)
     print '超参数：\n', lasso_model.best_params_
 
-    order = y_test.argsort(axis=0)
-    y_test = y_test.values[order]
+    # 对y_test和x_test进行排序，便于画图效果
+    order = y_test.argsort(axis=0)  # 获取y_test位置序号
+    y_test = y_test.values[order]  # 根据y_test位置顺序取值
     x_test = x_test.values[order, :]
+
     y_hat = lasso_model.predict(x_test)
-    print lasso_model.score(x_test, y_test)
+    print lasso_model.score(x_test, y_test)  # 计算R2
     mse = np.average((y_hat - np.array(y_test)) ** 2)  # Mean Squared Error
     rmse = np.sqrt(mse)  # Root Mean Squared Error
     print mse, rmse

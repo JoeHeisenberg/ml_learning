@@ -14,10 +14,11 @@ def convolve(image, weight):
     image_new = np.zeros((height_new, width_new), dtype=np.float)
     for i in range(height_new):
         for j in range(width_new):
-            image_new[i,j] = np.sum(image[i:i+h, j:j+w] * weight)
+            image_new[i, j] = np.sum(image[i:i + h, j:j + w] * weight)
     image_new = image_new.clip(0, 255)
     image_new = np.rint(image_new).astype('uint8')
     return image_new
+
 
 # image_new = 255 * (image_new - image_new.min()) / (image_new.max() - image_new.min())
 
@@ -31,7 +32,7 @@ if __name__ == "__main__":
     soble_y = np.array(([-1, -2, -1], [0, 0, 0], [1, 2, 1]))
     soble = np.array(([-1, -1, 0], [-1, 0, 1], [0, 1, 1]))
     prewitt_x = np.array(([-1, 0, 1], [-1, 0, 1], [-1, 0, 1]))
-    prewitt_y = np.array(([-1, -1,-1], [0, 0, 0], [1, 1, 1]))
+    prewitt_y = np.array(([-1, -1, -1], [0, 0, 0], [1, 1, 1]))
     prewitt = np.array(([-2, -1, 0], [-1, 0, 1], [0, 1, 2]))
     laplacian = np.array(([0, -1, 0], [-1, 4, -1], [0, -1, 0]))
     laplacian2 = np.array(([-1, -1, -1], [-1, 8, -1], [-1, -1, -1]))
