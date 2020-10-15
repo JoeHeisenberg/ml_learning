@@ -23,7 +23,7 @@ def update(f):
     if save_image:
         if f % 3 == 0:
             image_data = plt.cm.coolwarm(loc) * 255
-            image_data, _ = np.split(image_data, (-1, ), axis=2)
+            image_data, _ = np.split(image_data, (-1,), axis=2)
             image_data = image_data.astype(np.uint8).clip(0, 255)
             output = '.\\Pic2\\'
             if not os.path.exists(output):
@@ -35,8 +35,8 @@ def update(f):
 
 def calc_next_loc(now, loc, directions):
     near_index = np.array([(-1, -1), (-1, 0), (-1, 1),
-                  (0, -1), (0, 1),
-                  (1, -1), (1, 0), (1, 1)])
+                           (0, -1), (0, 1),
+                           (1, -1), (1, 0), (1, 1)])
     directions_index = np.array([7, 6, 5, 0, 4, 1, 2, 3])
     nn = now + near_index
     ii, jj = nn[:, 0], nn[:, 1]
@@ -50,29 +50,30 @@ if __name__ == '__main__':
     np.random.seed(0)
 
     save_image = False
-    style = 'Sin'   # Sin/Direct/Random
+    style = 'Sin'  # Sin/Direct/Random
     m, n = 50, 100
     directions = np.random.rand(m, n, 8)
 
     if style == 'Direct':
-        directions[:,:,1] = 10
+        directions[:, :, 1] = 10
     elif style == 'Sin':
         x = np.arange(n)
-        y_d = np.cos(6*np.pi*x/n)
+        y_d = np.cos(6 * np.pi * x / n)
         theta = np.empty_like(x, dtype=np.int)
         theta[y_d > 0.5] = 1
         theta[~(y_d > 0.5) & (y_d > -0.5)] = 0
         theta[~(y_d > -0.5)] = 7
         directions[:, x.astype(np.int), theta] = 10
     directions[:, :] /= np.sum(directions[:, :])
-    print directions
+    print
+    directions
 
     loc = np.zeros((m, n), dtype=np.float)
-    loc[m/2, n/2] = 1
+    loc[m / 2, n / 2] = 1
     loc_prime = np.empty_like(loc)
     loc_prime = loc
     fig = plt.figure(figsize=(8, 6), facecolor='w')
-    im = plt.imshow(loc/np.max(loc), cmap='coolwarm')
+    im = plt.imshow(loc / np.max(loc), cmap='coolwarm')
     anim = animation.FuncAnimation(fig, update, frames=300, interval=50, blit=True)
     plt.tight_layout(1.5)
     plt.show()

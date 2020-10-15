@@ -9,15 +9,22 @@ __author__ = 'joe'
 if __name__ == '__main__':
     pass
     try:
-        print 'try...'
+        print
+        'try...'
         r = 10 / int('a')
-        print 'result:', r
-    except ValueError, e:
-        print 'ValueError:', e
-    except ZeroDivisionError, e:
-        print 'ZeroDivisionError:', e
+        print
+        'result:', r
+    except ValueError as e:
+        print
+        'ValueError:', e
+    except ZeroDivisionError as e:
+        print
+        'ZeroDivisionError:', e
     else:
-        print 'no error!'
+        print
+        'no error!'
     finally:
-        print 'finally...'
-    print 'END'
+        print
+        'finally...'
+    print
+    'END'

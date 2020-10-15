@@ -71,11 +71,16 @@ def tpower(x, n=2):
 
 
 def enroll(name, gender, age=6, city='Beijing', tele='123456'):
-    print 'name:', name
-    print 'gender:', gender
-    print 'age:', age
-    print 'city:', city
-    print 'tele:', tele
+    print
+    'name:', name
+    print
+    'gender:', gender
+    print
+    'age:', age
+    print
+    'city:', city
+    print
+    'tele:', tele
 
 
 # Python函数在定义的时候，默认参数L的值就被计算出来了，即[]，
@@ -109,7 +114,8 @@ def calc(*numbers):
 # 可变参数允许你传入0个或任意个参数，这些可变参数在函数调用时自动组装为一个tuple。
 # 而关键字参数允许你传入0个或任意个含参数名的参数，这些关键字参数在函数内部自动组装为一个dict。
 def staff(name, age, **kw):
-    print 'name:', name, 'age:', age, 'other:', kw
+    print
+    'name:', name, 'age:', age, 'other:', kw
 
 
 # 递归函数

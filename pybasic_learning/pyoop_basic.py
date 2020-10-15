@@ -4,7 +4,8 @@ this module is for python oop exercise.
 """
 import types
 
-import __builtin__
+import builtins
+from numpy import unicode
 
 __author__ = 'joe'
 

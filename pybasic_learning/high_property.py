@@ -13,20 +13,24 @@ L = range(50)
 # 2 迭代
 def ite():
     for key in Map.iterkeys():
-        print key
+        print
+        key
 
     for value in Map.itervalues():
         print(value)
 
     for it in Map.iteritems():
-        print it
+        print
+        it
 
     for k, v in Map.iteritems():
-        print k, '=', v
+        print
+        k, '=', v
 
     # 同时引用了两个变量
     for i, value in enumerate(['A', 'B', 'C']):
-        print i, value
+        print
+        i, value
 
 
 # 列表生成式 list comprehension
@@ -40,9 +44,12 @@ def lscom():
 
     Ldir_name = [d for d in os.listdir('.')]
 
-    print L0, L1, L2
-    print L3
-    print Ldir_name
+    print
+    L0, L1, L2
+    print
+    L3
+    print
+    Ldir_name
 
 
 # 生成器 Generator 一边循环一边计算的机制

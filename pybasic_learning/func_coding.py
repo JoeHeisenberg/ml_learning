@@ -129,7 +129,8 @@ def log(text):
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kw):
-            print '%s %s():' % (text, func.__name__)
+            print
+            '%s %s():' % (text, func.__name__)
             return func(*args, **kw)
 
         # print('haha')
@@ -150,7 +151,8 @@ max2 = functools.partial(max, 10)
 
 @log('execute')
 def now():
-    print '2013-12-25'
+    print
+    '2013-12-25'
 
 
 if __name__ == '__main__':

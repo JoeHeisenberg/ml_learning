@@ -23,39 +23,41 @@ if __name__ == "__main__":
     x, y = data[np.arange(4)], data[4]
     y = pd.Categorical(values=y).codes
     feature_names = u'花萼长度', u'花萼宽度', u'花瓣长度', u'花瓣宽度'
-    features = [0,1]
+    features = [0, 1]
     x = x[features]
     x, x_test, y, y_test = train_test_split(x, y, train_size=0.7, random_state=0)
 
-    priors = np.array((1,2,4), dtype=float)
+    priors = np.array((1, 2, 4), dtype=float)
     priors /= priors.sum()
     gnb = Pipeline([
         ('sc', StandardScaler()),
         ('poly', PolynomialFeatures(degree=1)),
-        ('clf', GaussianNB(priors=priors))])    # 由于鸢尾花数据是样本均衡的，其实不需要设置先验值
+        ('clf', GaussianNB(priors=priors))])  # 由于鸢尾花数据是样本均衡的，其实不需要设置先验值
     # gnb = KNeighborsClassifier(n_neighbors=3).fit(x, y.ravel())
     gnb.fit(x, y.ravel())
     y_hat = gnb.predict(x)
-    print '训练集准确度: %.2f%%' % (100 * accuracy_score(y, y_hat))
+    print
+    '训练集准确度: %.2f%%' % (100 * accuracy_score(y, y_hat))
     y_test_hat = gnb.predict(x_test)
-    print '测试集准确度：%.2f%%' % (100 * accuracy_score(y_test, y_test_hat))  # 画图
+    print
+    '测试集准确度：%.2f%%' % (100 * accuracy_score(y_test, y_test_hat))  # 画图
 
-    N, M = 500, 500     # 横纵各采样多少个值
+    N, M = 500, 500  # 横纵各采样多少个值
     x1_min, x2_min = x.min()
     x1_max, x2_max = x.max()
     t1 = np.linspace(x1_min, x1_max, N)
     t2 = np.linspace(x2_min, x2_max, M)
-    x1, x2 = np.meshgrid(t1, t2)                    # 生成网格采样点
-    x_grid = np.stack((x1.flat, x2.flat), axis=1)   # 测试点
+    x1, x2 = np.meshgrid(t1, t2)  # 生成网格采样点
+    x_grid = np.stack((x1.flat, x2.flat), axis=1)  # 测试点
 
     mpl.rcParams['font.sans-serif'] = [u'simHei']
     mpl.rcParams['axes.unicode_minus'] = False
     cm_light = mpl.colors.ListedColormap(['#77E0A0', '#FF8080', '#A0A0FF'])
     cm_dark = mpl.colors.ListedColormap(['g', 'r', 'b'])
-    y_grid_hat = gnb.predict(x_grid)                  # 预测值
+    y_grid_hat = gnb.predict(x_grid)  # 预测值
     y_grid_hat = y_grid_hat.reshape(x1.shape)
     plt.figure(facecolor='w')
-    plt.pcolormesh(x1, x2, y_grid_hat, cmap=cm_light)     # 预测值的显示
+    plt.pcolormesh(x1, x2, y_grid_hat, cmap=cm_light)  # 预测值的显示
     plt.scatter(x[features[0]], x[features[1]], c=y, edgecolors='k', s=50, cmap=cm_dark)
     plt.scatter(x_test[features[0]], x_test[features[1]], c=y_test, marker='^', edgecolors='k', s=120, cmap=cm_dark)
 
